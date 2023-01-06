@@ -34,7 +34,7 @@ jobs:
       with:
         result-encoding: string
         script: |
-          const command = ${{ github.event.comment.body }};
+          const command = `${{ github.event.comment.body }}`;
           console.log(command);
 
           // command should be '/bench chain_name pallets'
