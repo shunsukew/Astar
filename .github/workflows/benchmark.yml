@@ -13,7 +13,8 @@ jobs:
       with:
         script: |
           const response = await github.rest.repos.getCollaboratorPermissionLevel({
-            ...${{ context.repo }},
+            owner: ${{ context.repo.owner }},
+            repo: ${{ context.repo.repo }},
             username: ${{ context.actor }}
           });
 
