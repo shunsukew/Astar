@@ -11,11 +11,12 @@ jobs:
     - name: Check permission
       uses: actions/github-script@v6
       with:
+        result-encoding: string
         script: |
           const response = await github.rest.repos.getCollaboratorPermissionLevel({
-            owner: "${ context.repo.owner }",
-            repo: "${ context.repo.repo }",
-            username: "${ context.actor }"
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            username: context.actor
           });
 
           const actorPermissionLevel = response.data.permission;
