@@ -20,10 +20,10 @@ jobs:
 
           const actorPermissionLevel = response.data.permission;
 
-          # <- lower higher ->
-          # ["none", "read", "write", "admin"]
+          // <- lower higher ->
+          // ["none", "read", "write", "admin"]
           if !(actorPermissionLevel == "admin" || actorPermissionLevel == "write") {
-            console.log("Permission denied.")
+            console.log("Permission denied.");
             process.exit(1);
           }
 
@@ -34,7 +34,7 @@ jobs:
         script: |
           const command = github.event.comment.body.split(" ");
 
-          # command should be '/bench chain_name pallets'
+          // command should be '/bench chain_name pallets'
           if (command.length != 3) {
             console.log("Invalid input. It should be '/bench [chain_name] [pallets]'")
             exit(1)
