@@ -52,6 +52,7 @@ jobs:
 
     - name: Get branch and sha
       id: get_branch_sha
+      uses: actions/github-script@v6
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
@@ -65,7 +66,7 @@ jobs:
           core.setOutput("sha", pull_request.data.head.sha)
 
     - name: Post starting comment
-      uses: actions/github-script@v3
+    uses: actions/github-script@v6
       env:
         MESSAGE: |
           Benchmarks job is scheduled at ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}.
@@ -109,7 +110,7 @@ jobs:
 
     - name: Post success comment
       if: ${{ success() }}
-      uses: actions/github-script@v3
+      uses: actions/github-script@v6
       env:
         MESSAGE: |
           Benchmarks have been finished.
@@ -126,7 +127,7 @@ jobs:
 
     - name: Post failure comment
       if: ${{ failure() }}
-      uses: actions/github-script@v3
+      uses: actions/github-script@v6
       env:
         MESSAGE: |
           Job failed.
