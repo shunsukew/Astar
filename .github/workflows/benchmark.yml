@@ -73,7 +73,7 @@ jobs:
       uses: actions/github-script@v6
       env:
         MESSAGE: |
-          Benchmarks job is scheduled at ${{ GITHUB_SERVER_URL }}/${ { GITHUB_REPOSITORY }}/actions/runs/${{ GITHUB_RUN_ID }}.
+          Benchmarks job is scheduled at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
           Please wait for a while.
           Branch: ${{ steps.get_branch_sha.outputs.branch }}
           SHA: ${{ steps.get_branch_sha.outputs.sha }}
@@ -119,7 +119,7 @@ jobs:
       env:
         MESSAGE: |
           Benchmarks have been finished.
-          You can download artifacts if exists ${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}/actions/runs/${{ GITHUB_RUN_ID }}.
+          You can download artifacts if exists ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         result-encoding: string
@@ -137,7 +137,7 @@ jobs:
       env:
         MESSAGE: |
           Job failed.
-          Please check ${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}/actions/runs/${{ GITHUB_RUN_ID }}.
+          Please check ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         result-encoding: string
