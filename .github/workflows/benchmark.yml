@@ -20,12 +20,12 @@ jobs:
           });
 
           const actorPermissionLevel = response.data.permission;
+          console.log(actorPermissionLevel);
 
           // <- lower higher ->
           // ["none", "read", "write", "admin"]
           if (!(actorPermissionLevel == "admin" || actorPermissionLevel == "write")) {
-            console.log("Permission denied.");
-            process.exit(1);
+            core.setFailed("Permission denied.");
           }
 
     - name: Validate and set inputs
@@ -34,13 +34,12 @@ jobs:
       with:
         result-encoding: string
         script: |
-          const command = `${{ github.event.comment.body }}`;
+          const command = `${{ github.event.comment.body }}`.split(" ");
           console.log(command);
 
           // command should be '/bench chain_name pallets'
           if (command.length != 3) {
-            console.log("Invalid input. It should be '/bench [chain_name] [pallets]'")
-            exit(1)
+            core.setFailed("Invalid input. It should be '/bench [chain_name] [pallets]'");
           }
 
           core.setOutput("chain", command[1])
