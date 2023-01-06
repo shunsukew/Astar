@@ -34,7 +34,7 @@ jobs:
       with:
         result-encoding: string
         script: |
-          const command = github.event.comment.body.split(" ");
+          const command = ${{ github.event.comment.body.split(" ") }};
 
           // command should be '/bench chain_name pallets'
           if (command.length != 3) {
@@ -60,7 +60,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         result-encoding: string
         script: |
-          const pull_request = await github.pulls.get({
+          const pull_request = await github.rest.pulls.get({
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.issue.number
@@ -81,7 +81,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         result-encoding: string
         script: |
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue_number,
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -124,7 +124,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         result-encoding: string
         script: |
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue_number,
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -142,7 +142,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         result-encoding: string
         script: |
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue_number,
             owner: context.repo.owner,
             repo: context.repo.repo,
