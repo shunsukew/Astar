@@ -32,6 +32,7 @@ jobs:
       id: bench-input
       uses: actions/github-script@v6
       with:
+        result-encoding: string
         script: |
           const command = github.event.comment.body.split(" ");
 
@@ -57,11 +58,12 @@ jobs:
       uses: actions/github-script@v6
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
+        result-encoding: string
         script: |
           const pull_request = await github.pulls.get({
-            owner: ${ context.repo.owner },
-            repo: ${ context.repo.repo },
-            pull_number: ${ context.issue.number }
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number
           })
 
           core.setOutput("branch", pull_request.data.head.ref)
@@ -77,12 +79,13 @@ jobs:
           SHA: ${{ steps.get_branch_sha.outputs.sha }}
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
+        result-encoding: string
         script: |
           github.issues.createComment({
-            issue_number: ${ context.issue_number },
-            owner: ${ context.repo.owner },
-            repo: ${ context.repo.repo },
-            body: ${ process.env.MESSAGE }
+            issue_number: context.issue_number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: process.env.MESSAGE
           })
 
     - name: Checkout the source code
@@ -119,12 +122,13 @@ jobs:
           You can download artifacts if exists ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}.
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
+        result-encoding: string
         script: |
           github.issues.createComment({
-            issue_number: ${ context.issue_number },
-            owner: ${ context.repo.owner },
-            repo: ${ context.repo.repo },
-            body: ${ process.env.MESSAGE }
+            issue_number: context.issue_number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: process.env.MESSAGE
           })
 
     - name: Post failure comment
@@ -136,10 +140,11 @@ jobs:
           Please check ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}.
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
+        result-encoding: string
         script: |
           github.issues.createComment({
-            issue_number: ${ context.issue_number },
-            owner: ${ context.repo.owner },
-            repo: ${ context.repo.repo },
-            body: ${ process.env.MESSAGE }
+            issue_number: context.issue_number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: process.env.MESSAGE
           })
