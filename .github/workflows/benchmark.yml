@@ -13,8 +13,8 @@ jobs:
       with:
         script: |
           const response = await github.rest.repos.getCollaboratorPermissionLevel({
-            ...context.repo,
-            username: context.actor
+            ...${{ context.repo }},
+            username: ${{ context.actor }}
           });
 
           const actorPermissionLevel = response.data.permission;
@@ -57,9 +57,9 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
           const pull_request = await github.pulls.get({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number
+            owner: ${{ context.repo.owner }},
+            repo: ${{ context.repo.repo }},
+            pull_number: ${{ context.issue.number }}
           })
 
           core.setOutput("branch", pull_request.data.head.ref)
@@ -78,9 +78,9 @@ jobs:
         script: |
           github.issues.createComment({
             issue_number: ${{ context.issue_number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: process.env.MESSAGE
+            owner: ${{ context.repo.owner }},
+            repo: ${{ context.repo.repo }},
+            body: ${{ process.env.MESSAGE }}
           })
 
     - name: Checkout the source code
@@ -120,9 +120,9 @@ jobs:
         script: |
           github.issues.createComment({
             issue_number: ${{ context.issue_number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: process.env.MESSAGE
+            owner: ${{ context.repo.owner }},
+            repo: ${{ context.repo.repo }},
+            body: ${{ process.env.MESSAGE }}
           })
 
     - name: Post failure comment
@@ -137,7 +137,7 @@ jobs:
         script: |
           github.issues.createComment({
             issue_number: ${{ context.issue_number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: process.env.MESSAGE
+            owner: ${{ context.repo.owner }},
+            repo: ${{ context.repo.repo }},
+            body: ${{ process.env.MESSAGE }}
           })
