@@ -106,6 +106,7 @@ jobs:
     - name: Execute benchmarking
       run: |
         mkdir -p ./benchmark-results
+        chmod +x ./scripts/run_benchmarks.sh
         ./scripts/run_benchmarks.sh -o ./benchmark-results -c ${{ steps.bench_inputs.outputs.chain }} -p ${{ steps.bench_inputs.outputs.pallets }}
 
     - uses: actions/upload-artifact@v3
