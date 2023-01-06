@@ -22,7 +22,7 @@ jobs:
 
           // <- lower higher ->
           // ["none", "read", "write", "admin"]
-          if !(actorPermissionLevel == "admin" || actorPermissionLevel == "write") {
+          if (!(actorPermissionLevel == "admin" || actorPermissionLevel == "write")) {
             console.log("Permission denied.");
             process.exit(1);
           }
@@ -137,7 +137,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
           github.issues.createComment({
-            issue_number: ${ context.issue_number }},
+            issue_number: ${ context.issue_number },
             owner: ${ context.repo.owner },
             repo: ${ context.repo.repo },
             body: ${ process.env.MESSAGE }
