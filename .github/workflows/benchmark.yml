@@ -42,8 +42,8 @@ jobs:
             core.setFailed("Invalid input. It should be '/bench [chain_name] [pallets]'");
           }
 
-          core.setOutput("chain", command[1])
-          core.setOutput("pallets", command[2])
+          core.setOutput("chain", command[1]);
+          core.setOutput("pallets", command[2]);
 
     - name: Free disk space
       run: |
@@ -107,7 +107,7 @@ jobs:
       run: |
         mkdir -p ./benchmark-results
         chmod +x ./scripts/run_benchmarks.sh
-        ./scripts/run_benchmarks.sh -o ./benchmark-results -c ${{ steps.bench_input.outputs.chain }} -p ${{ steps.bench_input.outputs.pallets }}
+        ./scripts/run_benchmarks.sh -o ./benchmark-results -c ${{ steps.bench-input.outputs.chain }} -p ${{ steps.bench-input.outputs.pallets }}
 
     - uses: actions/upload-artifact@v3
       with:
